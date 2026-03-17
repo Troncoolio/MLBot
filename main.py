@@ -1,4 +1,4 @@
-import time
+import time, find_chrome
 from config import INTERVALO_MINUTOS
 from scraper import buscar_ofertas  # ← ya no es buscar_categoria
 from logger import logger
