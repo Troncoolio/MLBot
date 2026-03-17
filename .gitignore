@@ -1,0 +1,5 @@
+.env
+enviados.json
+bot.log
+__pycache__/
+*.pyc
