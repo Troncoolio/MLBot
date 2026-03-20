@@ -1,4 +1,5 @@
 import time
+import os
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 from config import DESCUENTO_MINIMO
@@ -9,21 +10,36 @@ from logger import logger
 
 ya_enviados = cargar_enviados()
 
+def crear_browser(p):
+    es_railway = os.getenv("RAILWAY_ENVIRONMENT") is not None
+    browser = p.chromium.launch(
+        headless=es_railway,
+        args=[
+            "--no-sandbox",
+            "--disable-blink-features=AutomationControlled",
+            "--lang=es-MX"
+        ]
+    )
+    context = browser.new_context(
+        user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        locale="es-MX"
+    )
+    return browser, context  # <- regresa los dos
+
 def buscar_ofertas():
     ofertas = 0
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
+        browser, context = crear_browser(p)  # <- recibe los dos
+        page = context.new_page()  # <- usa context, no browser
 
         try:
             for pagina in range(1, 6):
                 url = f"https://www.mercadolibre.com.mx/ofertas?page={pagina}"
                 logger.info(f"Escaneando página {pagina}")
-                page.goto(url)
+                page.goto(url, timeout=60000, wait_until="domcontentloaded")
                 page.wait_for_timeout(5000)
 
-                # scroll para cargar productos
                 for _ in range(5):
                     page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
                     page.wait_for_timeout(2000)
