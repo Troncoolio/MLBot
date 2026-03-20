@@ -7,8 +7,8 @@ TOKEN_TELEGRAM = os.getenv("TOKEN_TELEGRAM")
 CHAT_ID = os.getenv("CHAT_ID")
 MATT_TOOL = os.getenv("MATT_TOOL")
 
-DESCUENTO_MINIMO = 20
-INTERVALO_MINUTOS = 10
+DESCUENTO_MINIMO = 10
+INTERVALO_MINUTOS = 360
 
 CATEGORIAS = [
     "iphone", "samsung", "laptop", "audifonos",
