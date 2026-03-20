@@ -16,6 +16,7 @@ def crear_browser(p):
         headless=es_railway,
         args=[
             "--no-sandbox",
+              "--disable-dev-shm-usage",
             "--disable-blink-features=AutomationControlled",
             "--lang=es-MX"
         ]
