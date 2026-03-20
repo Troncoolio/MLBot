@@ -1,5 +1,4 @@
 requests
 beautifulsoup4
-selenium
-webdriver-manager
 python-dotenv==1.0.0
+playwright
