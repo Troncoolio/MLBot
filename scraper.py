@@ -2,7 +2,7 @@ import time
 import os
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
-from config import DESCUENTO_MINIMO
+from config import DESCUENTO_MINIMO, MAX_PRODUCTOS_PER_ROUND
 from afiliados import agregar_afiliado
 from telegram_bot import enviar_foto
 from storage import cargar_enviados, guardar_enviados
@@ -107,6 +107,10 @@ def buscar_ofertas():
                                 logger.info(f"✅ ENVIADO: {titulo[:40]} | {descuento}% OFF")
                                 ofertas += 1
                                 time.sleep(1)
+
+                                if ofertas >= MAX_PRODUCTOS_PER_ROUND:
+                                    logger.info(f"Limite de {MAX_PRODUCTOS_PER_ROUND}")
+                                    return ofertas
 
                     except Exception as e:
                         logger.error(f"Error procesando producto: {e}")

@@ -11,6 +11,8 @@ DESCUENTO_MINIMO = 10
 
 INTERVALO_MINUTOS = 360
 
+MAX_PRODUCTOS_PER_ROUND = 10
+
 CATEGORIAS = [
     "iphone", "samsung", "laptop", "audifonos",
     "television", "tablet", "playstation", "xbox",
