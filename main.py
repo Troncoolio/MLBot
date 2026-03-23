@@ -1,11 +1,21 @@
-import time
+import time, schedule
 from config import INTERVALO_MINUTOS
 from scraper import buscar_ofertas  # ← ya no es buscar_categoria
 from logger import logger
 
-while True:
-    logger.info("Escaneando ofertas de MercadoLibre...")
+def ronda():
+    logger.info("Escanenado")
     total = buscar_ofertas()
-    logger.info(f"Ronda completa. Ofertas enviadas: {total}")
-    logger.info(f"Esperando {INTERVALO_MINUTOS} minutos...")
-    time.sleep(INTERVALO_MINUTOS * 60)
+    logger.info(f"Ronda completa ofertas {total}")
+
+    schedule.every().day.at("8:30").do(ronda)
+    schedule.every().day.at("10:30").do(ronda)
+    schedule.every().day.at("13:30").do(ronda)
+    schedule.every().day.at("19:30").do(ronda)
+
+    logger.info("Iniciado, espera horario")
+
+
+while True:
+    schedule.run_pending()
+    time.sleep(60)
