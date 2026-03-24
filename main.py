@@ -13,6 +13,8 @@ schedule.every().day.at("10:40").do(ronda)
 schedule.every().day.at("12:50").do(ronda)
 schedule.every().day.at("13:30").do(ronda)
 schedule.every().day.at("19:30").do(ronda)
+schedule.every().day.at("22:25").do(ronda)
+
 
 logger.info("Iniciado, espera horario")
 
