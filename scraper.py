@@ -11,9 +11,8 @@ from logger import logger
 ya_enviados = cargar_enviados()
 
 def crear_browser(p):
-    es_railway = os.getenv("RAILWAY_ENVIRONMENT") is not None
     browser = p.chromium.launch(
-        headless=es_railway,
+        headless=os.getenv("PRODUCCION") is not None,
         args=[
             "--no-sandbox",
               "--disable-dev-shm-usage",

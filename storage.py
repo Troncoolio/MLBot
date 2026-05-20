@@ -1,7 +1,6 @@
-import json
-import os
+import json, os
 
-ARCHIVO = "enviados.json"
+ARCHIVO = os.getenv("STORAGE_PATH", "enviados.json")
 
 def cargar_enviados():
     if os.path.exists(ARCHIVO):
