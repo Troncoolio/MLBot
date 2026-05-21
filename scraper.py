@@ -11,11 +11,13 @@ from logger import logger
 ya_enviados = cargar_enviados()
 
 def crear_browser(p):
+    es_produccion = os.getenv("PRODUCCION") is not None
     browser = p.chromium.launch(
-        headless=os.getenv("PRODUCCION") is not None,
+        executable_path="/usr/bin/chromium-browser",
+        headless=es_produccion,
         args=[
             "--no-sandbox",
-              "--disable-dev-shm-usage",
+            "--disable-dev-shm-usage",
             "--disable-blink-features=AutomationControlled",
             "--lang=es-MX"
         ]
@@ -24,7 +26,7 @@ def crear_browser(p):
         user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         locale="es-MX"
     )
-    return browser, context  # <- regresa los dos
+    return browser, context
 
 def buscar_ofertas():
     ofertas = 0
